@@ -3,14 +3,14 @@ import UIKit
 
 class ViewController: UIViewController {
     
-//MARK: - PROGRAMMATIC VIEWS
+//MARK: - VIEWS
     lazy var blueSquare: UIView = {
         let view = UIView()
         view.backgroundColor = .blue
         return view
     }()
     
-    //MARK: - STACKVIEW U&D
+    //MARK: - Up and Down Stack
     lazy var buttonStackView: UIStackView = {
         let buttonStack = UIStackView()
         buttonStack.axis = .horizontal
@@ -38,7 +38,7 @@ class ViewController: UIViewController {
         return button
     }()
     
-    //MARK: - STACKVIEW L&R
+    //MARK: - Left and Right Stack
     
     lazy var buttonStackViewLR: UIStackView = {
         let buttonStack = UIStackView()
@@ -67,7 +67,7 @@ class ViewController: UIViewController {
         return button
     }()
     
-    //MARK: - STEPPERS
+    //MARK: - Steppers
     lazy var animationStepper: UIStepper = {
         let stepper = UIStepper()
         stepper.value = 2
@@ -90,7 +90,7 @@ class ViewController: UIViewController {
     
     
     
-    
+    //square constraints
     lazy var blueSquareHeightConstaint: NSLayoutConstraint = {
         blueSquare.heightAnchor.constraint(equalToConstant: 200)
     }()
@@ -117,7 +117,7 @@ class ViewController: UIViewController {
     
     
     
-    //MARK: - IBACTIONS
+    //MARK: - Actions
     @IBAction func animateSquareUp(sender: UIButton) {
         let oldOffset = blueSquareCenterYConstraint.constant
         blueSquareCenterYConstraint.constant = oldOffset - CGFloat(distanceStepper.value)
@@ -150,9 +150,24 @@ class ViewController: UIViewController {
         }
     }
     
+
+    @objc func animationStepperPressed(_ stepper: UIStepper) {
+        animationStepper.value += 1
+        animationStepper.value -= 1
+        print("Changed Value: \(animationStepper.value)")
+    }
+    
+    @objc func distanceStepperPressed(_ stepper: UIStepper) {
+        distanceStepper.value += 1
+        distanceStepper.value -= 1
+        print("Distance Value: \(animationStepper.value)")
+    }
+
+
     
     
-    //MARK: - PRIVATE FUNCTIONS
+    
+    //MARK: - Private Methods
     private func addSubviews() {
         view.addSubview(blueSquare)
         addStackViewSubviews()
@@ -181,7 +196,7 @@ class ViewController: UIViewController {
         constrainDistanceStepper()
     }
     
-    /// CONSTRAINTS FOR BUTTONS
+ 
     private func constrainUpButton() {
         upButton.translatesAutoresizingMaskIntoConstraints = false
         
@@ -206,7 +221,9 @@ class ViewController: UIViewController {
         rightButton.heightAnchor.constraint(equalToConstant: 40).isActive = true
     }
     
-    /// CONSTRAINTS FOR SQUARE
+    
+    
+  
     private func constrainBlueSquare() {
         blueSquare.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
@@ -255,21 +272,10 @@ class ViewController: UIViewController {
         ])
     }
     
-    
-    
-    
-    
-    
-    //MARK: - OBJ-C FUNCTIONS
-    @objc func animationStepperPressed(_ stepper: UIStepper) {
-        animationStepper.value += 1
-        animationStepper.value -= 1
-        print("Changed Value: \(animationStepper.value)")
-    }
-    
-    @objc func distanceStepperPressed(_ stepper: UIStepper) {
-        distanceStepper.value += 1
-        distanceStepper.value -= 1
-        print("Distance Value: \(animationStepper.value)")
-    }
 }
+    
+    
+    
+    
+    
+    
